@@ -1,49 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8" />
 		<title></title>
-		<style>
-.values{
-	min-height: 500px;
-	width: 100vw;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-	.val {
-		min-height: 60px;
-		min-width: min(85vw , 600px);
-		margin-top: 20px;
-		text-align: center;
-		font-size: 1.5rem;
-	}
-		</style>
+		<script src="/socket.io/socket.io.js"></script>
+		<link rel="stylesheet" href="./static/css/showdata.css" />
 	</head>
 	<body>
-		<div id="values" class="values">
-			<input class="val" type="text" disabled value="rtmp://rtmp.livepeer.com/live/" />
-			<input class="val" id='key' type="text" disabled value="streamKey" />
-			<input class="val" id='url' type="text" disabled value="https://cdn.livepeer.com/hls/{playbackId}/index.m3u8" />
+		<div class="container">
+			<div class="showStream" id="showStream">
+				<video id="camera--view" autoplay playsinline></video>
 
+				<div class="streamtitle">
+					<h1>heading goes here</h1>
+				</div>
+			<div class="buttons">
+				<button id="switchMode" onclick="screenShare()">Share Screen</button>
+				<button id="switchMode" onclick="stopStream()">Stop Stream</button>
+			</div>
 
+			</div>
+		
+			<div id="values" class="values">
+				<span
+					>StreamUrl:
+					<div>
+						<input
+							class="val"
+							type="text"
+							disabled
+							value="rtmp://rtmp.livepeer.com/live/"
+						/><ion-icon name="copy-outline" class="icon" onclick="copyFunction(0)"></ion-icon></div
+				></span>
+				<span
+					>Stream Key:
+					<div><input
+						class="val"
+						id="key"
+						type="text"
+						disabled
+						value="streamKey" /><ion-icon name="copy-outline" class="icon" onclick="copyFunction(1)"></ion-icon
+				></div>
+			</span>
+				<span
+					>Playback Url:
+					<div><input
+						class="val"
+						id="url"
+						type="text"
+						disabled
+						value="https://cdn.livepeer.com/hls/{playbackId}/index.m3u8" />
+					<ion-icon name="copy-outline" class="icon" onclick="copyFunction(2)"></ion-icon
+				>
+			</div></span>
+
+				<div class="captureScreen" id="streamButton">
+					<button onclick="startStream()">(Beta)Stream via browser</button>
+				</div>
+			</div>
 		</div>
-<script>
+			
 
-	window.onload=async function(){
-		var data = await sessionStorage.getItem('streamData');
-			if(data!=null){
-					data=JSON.parse(data);
-				document.getElementById('key').value=data.streamKey;
-				document.getElementById('url').value=`https://cdn.livepeer.com/hls/${data.pId}/index.m3u8`;
-				}else{
-						location.href='/';
-					}
-		}
+		<!--		<div class="streamInfo">
+			stream info that was removed
+		</div>
+-->
+		<script>
+			const body = document.querySelector("body");
+			const start = document.querySelector("#streamButton button");
+			const container = document.querySelector(".container");
+			const right = document.querySelector(".streamInfo");
+			const bottom = document.querySelector(".streamtitle");
+			const icon = document.querySelector(".icon");
 
-</script>
+			start.addEventListener("click", function () {
+				body.classList.add("streaming");
+				body.style.background =
+					"linear-gradient(45deg, rgb(96, 96, 255), rgb(170, 135, 235))";
+				//		right.style.display="flex"
+				//bottom.style.display="flex"
+				container.style.justifyContent = "flex-start";
+			});
 
+		</script>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
+		<script src="static/js/showdata.js"></script>
 	</body>
 </html>
