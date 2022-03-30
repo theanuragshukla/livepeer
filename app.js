@@ -42,16 +42,16 @@ app.get("/create",(req,res)=>{
 })
 
 app.post("/create",async (req,res)=>{
-	let name = req.body.name;
-	let dur = req.body.dur;
-	let receipt = req.body.rec;
+	var name = await req.body.name;
+	var dur = await req.body.dur;
+	let receipt =await req.body.rec;
 	
 	if(!checkSpaces(name) || dur<10 || dur > 180){
 		res.statusCode = 500;
 		res.json({error: "Don't fool me , u wannabe hacker"});
 	}
 
-	var createStreamResponse =await requestStream(req.body.data.name,req.body.data.dur)
+	var createStreamResponse =await requestStream(name,dur)
 	if (createStreamResponse && createStreamResponse.data) {
 		res.statusCode = 200;
 		var finalData = createStreamResponse.data;
