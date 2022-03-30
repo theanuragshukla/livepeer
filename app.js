@@ -46,7 +46,7 @@ app.post("/create",async (req,res)=>{
 //	var dur =  req.body.dur;
 //	var receipt = req.body.rec;
 	
-	if(!checkSpaces(req.body.name) || req.body.dur<10 || req.body.dur > 180){
+	if(!checkSpaces(req.body.name,false) || req.body.dur<10 || req.body.dur > 180){
 		res.statusCode = 500;
 		res.json({error: "Don't fool me , u wannabe hacker"});
 	}
@@ -66,26 +66,6 @@ app.post("/create",async (req,res)=>{
 app.get("/watch",(req,res)=>{
 	res.status=200
 	res.sendFile(__dirname + '/view.html')
-})
-
-
-app.get("/all-active-streams",async (req,res)=>{
-		try {
-		await axios.get('https://livepeer.com/api/stream?streamsonly=1',
-			{
-				headers: {
-					authorization: `Bearer ${API_KEY}`,
-				},
-			})
-			.then(data=>{console.log(data)})
-			res.statusCode=200;
-			res.end("done");
-	}
-	catch (error) {
-	 
-	}
-
-
 })
 
 
