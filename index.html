@@ -1,8 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>D2-Stream</title>
 	<link rel="stylesheet" href="static/css/style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +19,7 @@
 	<div class="super">
 
 		<div class="welcome">
-			<div class="heading"><span>Welcome</span> <span> To exciting world of livestream.</span> </div>
+			<div class="heading"><span id="wlcm">Welcome</span> <span> To exciting world of livestream.</span> </div>
 			<div class="wlcmtxt">Enjoy the new era of livestream with control in your hands</div>
 		</div>
 
@@ -26,7 +30,7 @@
 					</div>
 					<div class="cardtxt">
 						Let the world know what you wish to show,
-						let world experience what they had never,
+					
 						Go live and stream now.
 					
 					</div>
@@ -48,7 +52,7 @@
 						collection of livestreams now.
 					</div>
 
-					<button onclick="triggerWatch(); superHeight();" class="btn join">
+					<button onclick="triggerWatch()" class="btn join">
 						<span>Watch Stream</span>
 						<ion-icon name="play-circle-outline" class="icon"></ion-icon>
 					</button>
@@ -62,11 +66,10 @@
 			</div>
 
 	</div>
-	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
+	<!--	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>-->
 	<script src="static/js/script.js"></script>
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-	
 </body>
 
 </html>

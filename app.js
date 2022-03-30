@@ -15,6 +15,22 @@ app.get("/",(req,res)=>{
 	res.sendFile(__dirname +'/index.html')
 })
 
+
+app.get("/contract",(req,res)=>{
+	res.sendFile(__dirname +'/contract.html')
+})
+
+
+app.get("/getRate",async (req,res)=>{
+	var ethVal;
+	await axios.get("https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH")
+		.then(data=>{
+			ethVal=data.data;
+		})
+	
+	res.json(ethVal);
+})
+
 app.get("/show",(req,res)=>{
 	res.status=200
 	res.sendFile(__dirname + '/showData.html')
@@ -26,7 +42,15 @@ app.get("/create",(req,res)=>{
 })
 
 app.post("/create",async (req,res)=>{
-	res.status=200
+	let name = req.body.name;
+	let dur = req.body.dur;
+	let receipt = req.body.rec;
+	
+	if(!checkSpaces(name) || dur<10 || dur > 180){
+		res.statusCode = 500;
+		res.json({error: "Don't fool me , u wannabe hacker"});
+	}
+
 	var createStreamResponse =await requestStream(req.body.data.name,req.body.data.dur)
 	if (createStreamResponse && createStreamResponse.data) {
 		res.statusCode = 200;
@@ -43,6 +67,27 @@ app.get("/watch",(req,res)=>{
 	res.status=200
 	res.sendFile(__dirname + '/view.html')
 })
+
+
+app.get("/all-active-streams",async (req,res)=>{
+		try {
+		await axios.get('https://livepeer.com/api/stream?streamsonly=1',
+			{
+				headers: {
+					authorization: `Bearer ${API_KEY}`,
+				},
+			})
+			.then(data=>{console.log(data)})
+			res.statusCode=200;
+			res.end("done");
+	}
+	catch (error) {
+	 
+	}
+
+
+})
+
 
 const server = app.listen(PORT,()=>{
 	console.log(`listening on port ${PORT}`)
@@ -95,16 +140,18 @@ const requestStream= async (streamName,duration)=>{
 		return createStreamResponse 
 	}
 	catch (error) {
-		/*  res.statusCode = 500;
-console.log(error)
-	  if (error.response.status === 403) {
-		res.statusCode = 403;
-	  }
-	  res.json({ error });
-	  */ 
+	 
 	}
 
 }
+
+
+
+function checkSpaces(str, exact) {
+    var len = str.replace(/\s/g, '').length
+    return (exact ? len === str.length && len !== 0: len !== 0)
+}
+
 
 
 io.on('connection', function(socket) {
