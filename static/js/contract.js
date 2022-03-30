@@ -118,6 +118,7 @@ async function initiateTxn(amt, e) {
                 while (txnReceipt == null) {
 
                     logs.innerHTML += `<p>Attempt ${count}</p>`;
+					scrollToBottom("logs");
                     count++;
                     txnReceipt = await web3.eth.getTransactionReceipt(transactonHash);
                     await sleep(expectedBlockTime)
@@ -181,4 +182,9 @@ async function initiateTxn(amt, e) {
 
 const txnFailed = (error) => {
     console.log('failed');
+}
+
+const scrollToBottom = (id) => {
+    const element = document.getElementById(id);
+    element.scrollTop = element.scrollHeight;
 }
