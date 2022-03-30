@@ -93,6 +93,7 @@ const sleep = (milliseconds) => {
 async function initiateTxn(amt, e) {
 
     e.innerHTML = "Initiating Txn...";
+	e.setAttribute("disabled",true);
     logs.innerHTML += `<h3>Initiating Transaction</h3>`;
     try {
         await connectWallet();
@@ -114,6 +115,8 @@ async function initiateTxn(amt, e) {
             let txnReceipt = null;
             let count = 1;
             logs.innerHTML += `<p>Waiting for transaction to be mined...</p><p>this may take a while, please keep calm and wait...</p>`;
+
+    e.innerHTML = "verifying Txn...";
             try {
                 while (txnReceipt == null) {
 
@@ -126,6 +129,7 @@ async function initiateTxn(amt, e) {
             } catch (err) {
                 return txnFailed(err);
 
+    e.innerHTML = "RETRY";
                 logs.innerHTML += `<p>Transaction Failed due to unknown reasons. Please reInitiate the payment with higher gas fees.</p>`;
             }
 
@@ -136,6 +140,7 @@ async function initiateTxn(amt, e) {
             console.log('success');
 	            console.log(txnReceipt);
 
+    e.innerHTML = "Creating Stream...";
             var name = document.getElementById("name").value;
             sessionStorage.setItem('streamName', name);
             var dur = 0;
@@ -161,6 +166,7 @@ async function initiateTxn(amt, e) {
             })
             .then(data => {
                 console.log(data);
+    e.innerHTML = "Redirecting...";
                 sessionStorage.setItem('streamData', JSON.stringify(data));
                 location.href = "/show";
             })
