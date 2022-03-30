@@ -42,9 +42,9 @@ app.get("/create",(req,res)=>{
 })
 
 app.post("/create",async (req,res)=>{
-	var name = await req.body.name;
-	var dur = await req.body.dur;
-	let receipt =await req.body.rec;
+	var name =  req.body.name;
+	var dur =  req.body.dur;
+	let receipt = req.body.rec;
 	
 	if(!checkSpaces(name) || dur<10 || dur > 180){
 		res.statusCode = 500;
