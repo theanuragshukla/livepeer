@@ -158,16 +158,16 @@ async function initiateTxn(amt, e) {
                     }
                 })
             })
-            .then(data => {
-                if (!data.ok) {
-                    throw new Error("HTTP status " + data.status);
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("HTTP status " + res.status);
                 }
-                return data.json()
+                return res.json()
             })
-            .then(data => {
-                console.log(data);
+            .then(res => {
+                console.log(res);
     e.innerHTML = "Redirecting...";
-                sessionStorage.setItem('streamData', JSON.stringify(data));
+                sessionStorage.setItem('streamData', JSON.stringify(res));
                 location.href = "/show";
             })
             .catch(err => {
