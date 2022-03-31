@@ -45,7 +45,7 @@ app.post("/create",async (req,res)=>{
 	var name =  req.body.data.name;
 	var dur =  req.body.data.dur;
 	var receipt = req.body.data.rec;
-	
+console.log(name);	
 	if(!checkSpaces(name,false) || dur<10 || dur > 180){
 		res.statusCode = 500;
 		res.json({error: "Don't fool me , u wannabe hacker"});
