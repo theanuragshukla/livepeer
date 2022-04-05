@@ -56,9 +56,9 @@ async function connectWallet() {
     logs.innerHTML += `<p>Trying to connect Wallet...</p>`;
     if (window.ethereum) {
         window.web3 = new Web3(window.ethereum);
+    logs.innerHTML += `<p>Wallet Found</p><p>Please Connect Your Wallet by confirming the popup</p><p>Waiting for connection...</p>`;
     }
 
-    logs.innerHTML += `<p>Wallet Found</p><p>Please Connect Your Wallet by confirming the popup</p><p>Waiting for connection...</p>`;
 
     conn = await window.ethereum.enable();
 
@@ -181,6 +181,8 @@ async function initiateTxn(amt, e) {
 
     } catch (err) {
         logs.innerHTML += `<p>some error occoured...</p><p>please retry</p>`;
+		logs.innerHTML+=`<p>Please Check that  METAMASK is installed.</p>`;
+		scrollToBottom("logs");
         console.log(err);
         e.innerHTML = "RETRY"
     }
